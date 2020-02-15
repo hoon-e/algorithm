@@ -5,16 +5,14 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
 
 public class n1316 {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		
-		ArrayList<Character> a=new ArrayList<>();
 		int line=Integer.parseInt(br.readLine());
-		int count=0;
+		int count = line;
 		char[][] s = new char[line][100];
 		
 		for(int i=0; i<line; i++) {
@@ -22,11 +20,21 @@ public class n1316 {
 		}
 		
 		for(char[] w : s) {
-			for(int i=0; i<w.length; i++) {
-				for(int j=i+1; j<w.length; j++) {
-					
+			boolean[] isChecked = new boolean[26];
+			for(int i=1; i<w.length; i++) {
+				if(w[i-1] != w[i]) {
+					if(isChecked[(int)w[i]-97] == true) {
+						count--;
+						break;
+					}
+					isChecked[(int)w[i-1]-97] = true;
 				}
 			}
 		}
+		
+		bw.write(count+"\n");
+		bw.flush();
+		bw.close();
+		br.close();
 	}
 }
