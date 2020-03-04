@@ -1,17 +1,18 @@
 package bojsolve;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.io.OutputStreamWriter;
 import java.util.Stack;
 
 public class n1874_stack {
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		int num = Integer.parseInt(br.readLine());
 		
-		ArrayList<String> result = new ArrayList<>();
 		int in[] = new int[num+1];
 		Stack <Integer> stack = new Stack<>();
 		
@@ -23,23 +24,23 @@ public class n1874_stack {
 		
 		for(int i=1; i<=num; i++) {
 			stack.push(i);
-			result.add("+");
+			bw.write("+\n");
 			
 			// stack이 비어있지 않고 stack의 맨 위가 in[j]일 경우
 			while(!stack.isEmpty() && stack.peek() == in[j]) {
 				stack.pop();
-				result.add("-");
+				bw.write("-\n");
 				j++;
 			}
 		}
 		
 		if(stack.isEmpty()) {
-			for(String s:result) {
-				System.out.println(s);
-			}
+			bw.flush();
 		}else {
 			System.out.println("NO");
 		}
+		bw.close();
+		br.close();
 	}
 
 }

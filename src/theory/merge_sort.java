@@ -28,7 +28,7 @@ public class merge_sort {
 		int k = left; // 정렬된 원소를 저장할 위치
 		
 		System.out.print("정렬 할 부분 <인덱스 "+ left+ "부터" + right +"까지>: " + Arrays.toString(data)+" => ");
-		while((i<=middle) && j<=right) { // i가 middle보다 작고, j가 right보다 작을 동안 반복한다.
+		while((i<=middle) && (j<=right)) { // i가 middle보다 작고, j가 right보다 작을 동안 반복한다.
 			if(data[i]<=data[j]) { // 왼쪽 부분의 값이 오른쪽 부분의 값보다 작거나 같다면
 				sorted[k] = data[i]; // 정렬 배열에 왼쪽 배열의 값을 넣는다.
 				i++; // i를 증가시켜 왼쪽 부분의 index를 하나 증가시킨다.

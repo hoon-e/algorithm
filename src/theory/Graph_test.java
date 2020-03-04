@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 import java.util.Stack;
 
 class Queue<T>{
-    class Node<T>{
+    static class Node<T>{
         private T data;
         private Node<T> next;
     
@@ -18,13 +18,14 @@ class Queue<T>{
     private Node<T> last;
 
     public void add(T item){
-        Node<T> t = new Node<T>(item);
+        Node<T> t = new Node<T>(item); // 새로운 노드 생성
 
-        if(last != null){
+        if(last != null){ // last가 null이 아니라면, last.next를 t로
             last.next = t;
         }
-        last = t;
-        if(first == null){
+        last = t; // last를 t로 설정
+        
+        if(first == null){ // first가 null일 경우 first = last
             first = last;
         }
     }
@@ -56,7 +57,7 @@ class Queue<T>{
 }
 
 class Graph {
-    class Node{
+    static class Node{
       int data;
       LinkedList<Node> adj;
       boolean marked;
@@ -96,6 +97,7 @@ class Graph {
     void dfs(int index){
       Node root = nodes[index];
       Stack<Node> stack = new Stack<Node>();
+      
       stack.push(root);
       root.marked = true;
 
