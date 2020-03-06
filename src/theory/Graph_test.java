@@ -104,7 +104,7 @@ class Graph {
       while(!stack.isEmpty()){
         Node r = stack.pop();
         for(Node n : r.adj){
-          if(n.marked == false){
+          if(!n.marked){
             n.marked = true;
             stack.push(n);
           }
@@ -126,7 +126,7 @@ class Graph {
       while(!queue.isEmpty()){
         Node r = queue.remove();
         for(Node n : r.adj){
-          if(n.marked == false){
+          if(!n.marked){ // n.marked == false
             n.marked = true;
             queue.add(n);
           }
@@ -140,7 +140,7 @@ class Graph {
       r.marked = true;
       visit(r);
       for( Node n : r.adj){
-        if(n.marked == false){
+        if(!n.marked){
           dfsRecur(n);
         }
       } 
