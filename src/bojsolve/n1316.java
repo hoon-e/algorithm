@@ -23,7 +23,7 @@ public class n1316 {
 			boolean[] isChecked = new boolean[26];
 			for(int i=1; i<w.length; i++) {
 				if(w[i-1] != w[i]) {
-					if(isChecked[(int)w[i]-97] == true) {
+					if(isChecked[(int) w[i] - 97]) {
 						count--;
 						break;
 					}
