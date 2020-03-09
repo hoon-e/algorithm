@@ -13,10 +13,10 @@ public class n1874_stack {
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		int num = Integer.parseInt(br.readLine());
 		
-		int in[] = new int[num+1];
 		Stack <Integer> stack = new Stack<>();
-		
-		for(int i=1; i<=num; i++) {
+
+		int[] in = new int[num+1];
+		for(int i = 1; i<=num; i++) {
 			in[i] = Integer.parseInt(br.readLine());
 		}
 		
@@ -33,16 +33,14 @@ public class n1874_stack {
 				j++;
 			}
 		}
-		
-		if(stack.isEmpty()) {
-			bw.flush();
-		}else {
-			System.out.println("NO");
+
+		if (!stack.isEmpty()) {
+			bw.write("NO");
 		}
+		bw.flush();
 		bw.close();
 		br.close();
 	}
-
 }
 
 /**
