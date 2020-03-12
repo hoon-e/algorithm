@@ -1,4 +1,4 @@
-package bojsolve3;
+package backtracking;
 
 import java.io.*;
 import java.lang.reflect.Array;

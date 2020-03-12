@@ -1,46 +1,44 @@
-package bojsolve3;
+package backtracking;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class N15651 {
+public class N15657 {
     static int N;
     static int M;
-    static StringBuffer sb;
+    static int[] ans;
+    static StringBuilder sb;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
+
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
-        sb = new StringBuffer();
-        boolean[] used = new boolean[N];
-        int[] ans = new int[M];
-        find(ans, used, 0);
-        // 어떤 수가 수열에 이미 쓰였는가
-        // 어떤 수가 아직 쓰이지 않았는가
+        sb = new StringBuilder();
+
+        ans = new int[M];
+        find(ans,0);
         bw.write(sb.toString());
         bw.flush();
         bw.close();
         br.close();
     }
 
-    static void find(int[] ans, boolean[] used, int num){
+    static void find(int[] ans, int num){
         if(num == M){
             for(int i=0; i<M; i++)
-                sb.append((ans[i]+1)).append(" ");
+                sb.append(ans[i]+1).append(" ");
             sb.append("\n");
             return;
         }
+        int f=0;
+        if(num != 0)
+            f = ans[num-1];
 
-        for(int i=0; i<N; i++){
-            if(!used[i]){
-                ans[num] = i;
-                find(ans, used, num+1);
-                used[i] = false;
-            }
+        for(int i=f; i<N; i++){
+            ans[num] = i;
+            find(ans,num+1);
         }
     }
 }

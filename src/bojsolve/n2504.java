@@ -1,14 +1,15 @@
 package bojsolve;
 
+import java.io.*;
 import java.util.Scanner;
 import java.util.Stack;
 
 public class n2504 {
-	public static void main(String[] args){
-		
-		Scanner scn = new Scanner(System.in);
-		// BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String line = scn.nextLine();
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+		String line = br.readLine();
 		int sum=0; int mul=1; int l=0; int k=0;
 		
 		// 값 넣는 스택
@@ -48,8 +49,9 @@ public class n2504 {
 					}
 				}
 				else {
-					System.out.print(0);
-					System.exit(0);
+					bw.write(0+"\n");
+					bw.flush();
+					return;
 				}
 			}
 			else if( b == ']') {
@@ -61,18 +63,20 @@ public class n2504 {
 					}
 				}
 				else {
-					System.out.print(0);
-					System.exit(0);
+					bw.write(0+"\n");
+					bw.flush();
+					return;
 				}
 			}
 		}
 		
 		if(!s.isEmpty() || l != 0 || k != 0) {
-			System.out.print(0);
+			bw.write(0+"\n");
 		}else {
-			System.out.print(sum);
+			bw.write(sum+"\n");
 		}
-		
-		scn.close();
+		bw.flush();
+		bw.close();
+		br.close();
 	}
 }

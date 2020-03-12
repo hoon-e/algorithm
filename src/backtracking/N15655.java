@@ -1,13 +1,13 @@
-package bojsolve3;
+package backtracking;
 
-// 추후에 더 풀어볼것
 import java.io.*;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class N15652 {
+public class N15655 {
     static int N;
     static int M;
-    static int[] ans;
+    static int[] dab;
     static StringBuilder sb;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -16,10 +16,18 @@ public class N15652 {
 
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
+        st = new StringTokenizer(br.readLine());
+        int[] ans = new int[N];
+        dab = new int[N];
         sb = new StringBuilder();
 
-        ans = new int[M];
-        find(ans,0);
+        int i=0;
+        while(st.hasMoreTokens()){
+            ans[i++] = Integer.parseInt(st.nextToken());
+        }
+
+        Arrays.sort(ans);
+        find(ans, 0 );
         bw.write(sb.toString());
         bw.flush();
         bw.close();
@@ -28,18 +36,24 @@ public class N15652 {
 
     static void find(int[] ans, int num){
         if(num == M){
-            for(int i=0; i<M; i++)
-                sb.append(ans[i]+1).append(" ");
+            for(int i=0; i<M; i++){
+                sb.append(dab[i]).append(" ");
+            }
             sb.append("\n");
             return;
         }
-        int f=0;
-        if(num != 0)
-            f = ans[num-1];
+        int f = 0;
+        if(num != 0){
+            for(int i=0; i<N; i++){
+                if(ans[i] == dab[num-1]){
+                    f = i+1; break;
+                }
+            }
+        }
 
         for(int i=f; i<N; i++){
-            ans[num] = i;
-            find(ans,num+1);
+            dab[num] = ans[i];
+            find(ans, num+1);
         }
     }
 }

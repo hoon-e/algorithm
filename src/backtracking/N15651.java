@@ -1,9 +1,11 @@
-package bojsolve3;
+package backtracking;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class N15649 {
+public class N15651 {
     static int N;
     static int M;
     static StringBuffer sb;
@@ -36,7 +38,6 @@ public class N15649 {
         for(int i=0; i<N; i++){
             if(!used[i]){
                 ans[num] = i;
-                used[i] = true;
                 find(ans, used, num+1);
                 used[i] = false;
             }
