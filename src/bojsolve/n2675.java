@@ -12,7 +12,7 @@ public class n2675 {
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		
 		int linenum = Integer.parseInt(br.readLine());
-		String[] word = new String[linenum];
+		String[] word;
 		
 		for(int i=0; i<linenum; i++) {
 			StringBuffer sb = new StringBuffer();
