@@ -77,7 +77,6 @@ public class n5397 {
 		/* ArrayList로 생각해본 방법 -> 시간초과가 발생한다.
 		 * 문자열의 이동과 관련된 문제는 Stack을 사용하는 것이 시간이 빠르다.
 		 * 또한 StringBuilder를 사용하면 시간을 단축할 수 있다.
-		 * 
 		for(int i=0; i<lineNum; i++) {
 			char[] line = br.readLine().toCharArray();
 			int index = 0;
