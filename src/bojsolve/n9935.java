@@ -16,7 +16,7 @@ public class n9935 {
 		Stack<Character> s = new Stack<>();
 		
 		// 넣어야 하는 인덱스
-		int size=0;
+		int size = 0;
 		
 		String line = br.readLine();
 		String bomb = br.readLine();
