@@ -3,7 +3,6 @@ package bojsolve;
 import java.util.Scanner;
 
 public class n10799 {
-
 	public static int top = -1;
 	public static int rod_top = -1;
 	
