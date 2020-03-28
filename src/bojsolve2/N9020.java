@@ -39,8 +39,7 @@ public class N9020 {
 							min[1] = tnum-j;
 						}
 					}
-				}else
-					continue;
+				}
 			}
 			bw.write(min[0] + " " + min[1]+"\n");
 		}
