@@ -1,17 +1,28 @@
-package bojsolve3;
+package recur;
 
 import java.io.*;
+import java.math.BigInteger;
 
-public class N11729 {
+// BigInteger 사용하는 문제
+public class N1914 {
     static StringBuffer sb = new StringBuffer();
     public static void main(String[] args) throws IOException {
         BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
 
         int num=Integer.parseInt(br.readLine());
-
-        bw.write(((1<<num)-1)+"\n");
-        hanoi(1, 3, num);
+        BigInteger ans = new BigInteger("2");
+        // 하노이의 탑을 옮기는 횟수는 2^NUM - 1회 이다.
+        BigInteger c = ans.pow(num).subtract(BigInteger.ONE);
+        if(num > 20) {
+            bw.write(c + "\n");
+            bw.flush();
+            return;
+        }
+        else{
+            bw.write(((1<<num)-1)+"\n");
+            hanoi(1, 3, num);
+        }
         bw.write(sb.toString());
         bw.flush();
         bw.close();
