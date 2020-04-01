@@ -3,7 +3,7 @@ package greedy;
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class N11407 {
+public class N11047 {
     /*
     제일 적게 소모하려면?
     500원을 제일 많이쓰고, 100, 50, 10 순으로

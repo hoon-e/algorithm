@@ -49,8 +49,11 @@ public class N9466 {
             dfs(next);
         else{
             if(!fin[next]){
-                for(int i = next; idx != i; i = project[i])
+                int i= next;
+                while(idx != i){
                     cnt++;
+                    i = project[i];
+                }
                 cnt++;
             }
         }
