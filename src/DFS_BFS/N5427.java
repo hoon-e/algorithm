@@ -78,6 +78,7 @@ public class N5427 {
     public static int Bfs(){
         Queue<coord> nq = new LinkedList<>();
 
+        // 아이디어 : 불이 먼저 퍼져야하므로 불을 먼저 넣고 탐색을 한다.
         for(coord fire : q)
             nq.offer(fire);
 

@@ -63,6 +63,7 @@ public class N2206 {
                 int ny = cur.y + dy[k];
 
                 if (nx < 0 || nx >= N || ny < 0 || ny >= M) continue;
+                // ★ 벽의 카운트를 센다. 벽의 카운트보다 큰 경우 뚫지 못한다.
                 if (chk[nx][ny] <= cur.cnt) continue;
                 if (map[nx][ny] == '0') {
                     chk[nx][ny] = cur.cnt;
