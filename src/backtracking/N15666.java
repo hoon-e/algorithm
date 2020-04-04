@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
 
+// 재귀적인 백트래킹의 기본
 public class N15666 {
     static int n;
     static int m;

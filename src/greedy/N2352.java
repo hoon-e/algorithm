@@ -19,6 +19,7 @@ public class N2352 {
         port[0] = input[0];
         int size = 1;
 
+        // LIS에 대한 개념 확실히 하기 - 이분 탐색을 이용하여 간선의 탐색을 O(ElogE)까지 줄일 수 있다.
         for(int index=1; index<num; index++){
             if(port[0] > input[index])
                 port[0] = input[index];
