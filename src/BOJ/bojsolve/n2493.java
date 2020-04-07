@@ -1,49 +1,56 @@
 package BOJ.bojsolve;
 
 import java.io.*;
+import java.util.Stack;
+import java.util.StringTokenizer;
 
 public class n2493 {
 	public static void main(String[] args) throws IOException{
-
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		int num = Integer.parseInt(br.readLine());
 
-		String[] tower = new String[num];
-		int[] real_tower = new int[num];
+		StringTokenizer st = new StringTokenizer(br.readLine());
 
+		int[] tower = new int[num+1];
 		// 결과 저장
-		int[] result = new int[num];
+		int[] result = new int[num+1];
 
-		tower = br.readLine().split(" ");
-
-		// 탑의 높이 입력
-		for(int i=0; i<num; i++) {
-			real_tower[i] = Integer.parseInt(tower[i]);
+		int idx = 1;
+		while(st.hasMoreTokens()){
+			tower[idx++] = Integer.parseInt(st.nextToken());
 		}
 
-		// 탑의 맨끝부터 처음 까지 역순으로 체크
-		for(int j=num-1; j>=0; j--) {
-			if(j == 0) { // 맨 처음 탑은 수신하는 탑이 없다.
-				result[j] = 0;
-				break;
-			}
+		Stack<Integer> t = new Stack<>();
+		Stack<Integer> index = new Stack<>();
 
-			int k = j-1; // 수신할 수 있는 탑을 이전부터로 설정
-			long cur = real_tower[j]; // 현재의 탑
+		t.push(tower[1]);
+		index.push(1);
+		result[1] = 0;
 
-			while( k >= 0 ) { // k가 0이 될때까지 반복
-				if( cur < real_tower[k] ) { // 만약 현재의 탑 높이보다 큰 높이의 탑이 있다면 수신을 한다.
-					result[j] = k+1; // 그 인덱스를 저장한다.
-					break; // 종료한다.
+		for(int i=2; i<=num; i++) {
+			while(!t.isEmpty()){
+				int top = t.peek();
+				if( top < tower[i]){
+					t.pop();
+					index.pop();
+				}else{
+					result[i] = index.peek();
+					t.push(tower[i]);
+					index.push(i);
+					break;
 				}
-				k--; // 없을 경우 k를 감소시켜가며 반복한다.
+			}
+
+			if(t.isEmpty()) {
+				result[i] = 0;
+				t.push(tower[i]);
+				index.push(i);
 			}
 		}
 
-		for(int n : result) {
-			bw.write(n+" ");
-		}
+		for(int i=1; i<=num; i++)
+			bw.write(result[i]+ " ");
 		bw.flush();
 		bw.close();
 		br.close();

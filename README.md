@@ -1,7 +1,7 @@
 # 알고리즘
 
 :gift: 알고리즘 초짜가 알고리즘 공부를 하면서 알게된 내용과 함께 `백준 온라인 저지/프로그래머스` 풀이한 문제들을 올립니다. :gift:
-
+<br>
 ## CLASS
 
 - [배열](https://github.com/hoon-e/algorithm/tree/master/src/BOJ/about_arr)
@@ -21,5 +21,5 @@
 - [백준 온라인 저지](https://www.acmicpc.net/)
 - [프로그래머스](https://programmers.co.kr/)
 - [개인 블로그](https://hoon-e.github.io/)
-
+<br>
 :hibiscus: 오늘도 화이팅!
