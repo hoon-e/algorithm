@@ -24,5 +24,9 @@
 				- 분리연결법은 해시테이블의 셀마다 연결리스트를 하나씩 저장하도록 하고 충돌이 발생하는 데이터는 연결리스트의 다음 노드로 계속 추가하도록 한다.
 				- 검색 시에는 해당 테이블의 인덱스를 찾고 그 인덱스에 연결되어있는 연결리스트들을 순차적으로 탐색하여 찾아서 비교 하는 과정을 거친다.
 				
+* Open Addressing 
+    - 해당 칸이 이미 차있을 경우 한 칸씩 뛰는 것 : Linear Probing
+    - Quadratic Probing, Double Hashing
+
 [참조 링크1](https://hyeonstorage.tistory.com/265)
 [참조 링크2](https://preamtree.tistory.com/20)
