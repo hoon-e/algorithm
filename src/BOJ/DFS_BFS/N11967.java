@@ -4,6 +4,7 @@ import java.awt.*;
 import java.io.*;
 import java.util.*;
 
+// TODO : 문제 다시 구성해야될듯 = 다시 풀기
 public class N11967 {
     static class coord {
         int x;
@@ -71,33 +72,40 @@ public class N11967 {
         }
 
         int count = 1;
+        for(int i=1; i<=N; i++){
+            for(int j=1; j<=N; j++){
+                if(!(i == 1 && j == 1) && !light[i][j]) continue;
+                if(vst[i][j]) continue;
 
-        Queue<Point> q = new LinkedList<>();
-        q.offer(new Point(1,1));
-        light[1][1] = true;
-        vst[1][1] = true;
+                System.out.println(i + " " + j);
+                System.out.println(light[i][j] + " " + vst[i][j]);
 
-        while(!q.isEmpty()){
-            Point cur = q.poll();
+                Queue<Point> q = new LinkedList<>();
+                q.offer(new Point(i,j));
+                vst[i][j] = true;
 
-            if(make[cur.x][cur.y] != Integer.MIN_VALUE){
-                for(int p=0; p < coords.get(make[cur.x][cur.y]).linked.size(); p++){
-                    Point next = coords.get(make[cur.x][cur.y]).linked.get(p);
-                    if(light[next.x][next.y]) continue;
-                    light[next.x][next.y] = true;
-                    count++;
+                while(!q.isEmpty()){
+                    Point cur = q.poll();
+                    if(make[cur.x][cur.y] != Integer.MIN_VALUE){
+                        for(int p=0; p < coords.get(make[cur.x][cur.y]).linked.size(); p++){
+                            Point next = coords.get(make[cur.x][cur.y]).linked.get(p);
+
+                            if(light[next.x][next.y]) continue;
+                            light[next.x][next.y] = true;
+                            count++;
+                        }
+                    }
+
+                    for(int k=0; k<4; k++){
+                        int newx = cur.x + dx[k];
+                        int newy = cur.y + dy[k];
+
+                        if(newx < 1 || newx > N || newy < 1 || newy > N) continue;
+                        if(!light[newx][newy] || vst[newx][newy]) continue;
+                        vst[newx][newy] = true;
+                        q.offer(new Point(newx, newy));
+                    }
                 }
-            }
-
-            for(int k=0; k<4; k++){
-                int newx = cur.x + dx[k];
-                int newy = cur.y + dy[k];
-
-                if(newx < 1 || newx > N || newy < 1 || newy > N) continue;
-                if(!light[newx][newy]) continue;
-                if(vst[newx][newy]) continue;
-                vst[newx][newy] = true;
-                q.offer(new Point(newx, newy));
             }
         }
 
