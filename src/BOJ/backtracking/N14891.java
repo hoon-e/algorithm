@@ -64,6 +64,7 @@ public class N14891 {
                 scr |= (1 << i);
             }
         }
+
         bw.write(String.valueOf(scr));
         bw.flush();
         bw.close();
