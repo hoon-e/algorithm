@@ -1,6 +1,7 @@
 package BOJ.bruteforce;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class N2048 {
@@ -8,7 +9,7 @@ public class N2048 {
         int x;
         int y;
         boolean chk;
-
+                
         coord(){};
         coord(int x, int y, boolean chk){
             this.x = x;
@@ -32,12 +33,13 @@ public class N2048 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st;
 
         N = Integer.parseInt(br.readLine());
         tile = new int[N][N];
 
         for(int i=0; i<N; i++){
-            StringTokenizer st = new StringTokenizer(br.readLine());
+            st = new StringTokenizer(br.readLine());
             for(int j=0; j<N; j++){
                 tile[i][j] = Integer.parseInt(st.nextToken());
                 if(tile[i][j] > max)
@@ -45,6 +47,7 @@ public class N2048 {
             }
         }
 
+        
         bw.write(max+"\n");
         bw.flush();
         bw.close();
