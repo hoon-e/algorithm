@@ -108,5 +108,3 @@ public class N11723 {
         br.close();
     }
 }
-
-// TODO : 비트마스킹??
