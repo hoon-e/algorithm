@@ -63,7 +63,6 @@ public class N1753 {
         PriorityQueue<Edge> pq = new PriorityQueue<>();
 
         dist[start] = 0;
-
         // 다익스트라 사용시에 처음 노드를 꼭 넣어주어야한다. 아니 이거 시작점 꼭 큐에 넣어줘야된다... 아가야...
         pq.offer(new Edge(start, dist[start]));
 
