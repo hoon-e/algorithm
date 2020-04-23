@@ -10,11 +10,10 @@ public class N1504 {
     static int E;
     static int v1;
     static int v2;
-    static int[][] nodes;
-    static boolean[][] vst;
+    static long[][] nodes;
 
-    static final int INF = 1_000_000;
-    static int min = INF;
+    static final int INF = 800_001;
+    static long min = INF;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -23,10 +22,13 @@ public class N1504 {
 
         N = Integer.parseInt(st.nextToken());
         E = Integer.parseInt(st.nextToken());
-        nodes = new int[N+1][N+1];
+        nodes = new long[N+1][N+1];
 
-        for(int i=1; i<=N; i++)
+        //★ 자기 자신으로 오는 길이는 0이다.
+        for(int i=1; i<=N; i++) {
             Arrays.fill(nodes[i], INF);
+            nodes[i][i] = 0;
+        }
 
         int s, e, d;
         for(int i=0; i<E; i++){
@@ -35,15 +37,15 @@ public class N1504 {
             e = Integer.parseInt(st.nextToken());
             d = Integer.parseInt(st.nextToken());
 
-            nodes[s][e] = d;
-            nodes[e][s] = d;
+            nodes[s][e] = Math.min(d, nodes[s][e]);
+            nodes[e][s] = Math.min(d, nodes[e][s]);
         }
 
         st = new StringTokenizer(br.readLine());
         v1 = Integer.parseInt(st.nextToken());
         v2 = Integer.parseInt(st.nextToken());
 
-        dijkstra1504();
+        min = dijkstra1504();
 
         if(min == INF)
             bw.write("-1");
@@ -54,26 +56,22 @@ public class N1504 {
         br.close();
     }
 
-    static int dijkstra1504(){
-        vst = new boolean[N+1][N+1];
-
-        // 삼중 포문으로 해결한다.
-        for(int i=1; i<=N; i++){ // 출발 하는 노드
-            for(int j=1; j<=N; j++){ // 도착하는 노드
-                for(int k=1; k<=N; k++){
-                    if(k == v1) continue;
-                    nodes[j][k] = Math.min(nodes[j][i] + nodes[i][k], nodes[j][k]);
+    static long dijkstra1504(){
+        // 플로이드 - 와셜 알고리즘
+        for(int k=1; k<=N; k++){ // 출발 하는 노드
+            for(int i=1; i<=N; i++){ // 도착하는 노드
+                for(int j=1; j<=N; j++){
+                    nodes[i][j] = Math.min(nodes[i][k] + nodes[k][j], nodes[i][j]);
                 }
             }
         }
 
-        for(int i=1; i<=N; i++){
-            for(int j=1; j<=N; j++){
-                System.out.print(nodes[i][j] + " " );
-            }
-            System.out.println();
-        }
+        long sum1=(nodes[1][v1] + nodes[v1][v2] + nodes[v2][N]);
+        long sum2=(nodes[1][v2] + nodes[v2][v1] + nodes[v1][N]);
 
-        return 0;
+        if(sum1 >= INF && sum2 >= INF)
+            return INF;
+        else
+            return Math.min(sum1, sum2);
     }
 }
