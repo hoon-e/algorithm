@@ -4,6 +4,8 @@
 
 :hibiscus: 알고리즘 초짜가 알고리즘 공부를 하면서 알게된 내용과 함께 `백준 온라인 저지/프로그래머스` 풀이한 문제들을 올립니다.
 
+---
+
 ## CONTENTS
 
 - [배열(Arrays)](https://github.com/hoon-e/algorithm/tree/master/src/BOJ/about_arr)
