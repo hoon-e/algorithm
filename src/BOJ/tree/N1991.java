@@ -1,4 +1,4 @@
-package tree;
+package BOJ.tree;
 
 import java.io.*;
 
