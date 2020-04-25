@@ -28,7 +28,6 @@ public class N1941 {
         for(int i=0; i<25; i++){
             vst = new boolean[25];
             chk = new boolean[5][5];
-
             // 1 ~ 25까지 각각의 알파벳에서 DFS 시작
             DFS(i, 1, 0);
         }
