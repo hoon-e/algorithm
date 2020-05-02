@@ -1,7 +1,6 @@
 package BOJ.bsearch;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class N1654 {
