@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
+// TODO: LIS 개념 복습하기
 public class N1965 {
     static int[] box = new int[1001];
     static int[] chk = new int[1001];

@@ -3,6 +3,7 @@ package BOJ.DP;
 import java.io.*;
 import java.util.StringTokenizer;
 
+// memoization
 public class N1520 {
     static int M;
     static int N;
@@ -25,41 +26,34 @@ public class N1520 {
 
         for(int i=0; i<M; i++){
             st = new StringTokenizer(br.readLine());
-            for(int j=0; j<N; j++)
+            for(int j=0; j<N; j++) {
                 map[i][j] = Integer.parseInt(st.nextToken());
-        }
-
-        for(int i=0; i<M; i++){
-            for(int j=0; j<N; j++){
-                System.out.println(i + " " + j);
-                for(int k=0; k<4; k++){
-                    int nx = i + dx[k];
-                    int ny = j + dy[k];
-
-                    if(nx < 0 || nx >= M || ny < 0 || ny >= N) continue;
-                    if(map[nx][ny] > map[i][j]){
-                        if(nx == 0 && ny == 0)
-                            dp[i][j] = dp[nx][ny] + 1;
-                        else if(dp[nx][ny] != 0)
-                            dp[i][j] += dp[nx][ny];
-                    }
-
-                    if(map[nx][ny] < map[i][j] && dp[i][j] != 0) {
-                        dp[nx][ny] = Math.max(dp[nx][ny], dp[nx][ny] + dp[i][j]);
-                    }
-                }
-
-                for(int a=0; a<M; a++){
-                    for(int b=0; b<N; b++)
-                        System.out.print(dp[a][b] + " ");
-                    System.out.println();
-                }
+                dp[i][j] = -1;
             }
         }
 
-        bw.write(dp[M-1][N-1]+"\n");
+        bw.write(downWay(0, 0)+"\n");
         bw.flush();
         bw.close();
         br.close();
+    }
+
+    static int downWay(int row, int col){
+        if(row == M-1 && col == N-1)
+            return 1;
+
+        if(dp[row][col] == -1){
+            dp[row][col] = 0;
+
+            for(int i=0; i<4; i++){
+                int nrow = row + dx[i];
+                int ncol = col + dy[i];
+
+                if(nrow < 0 || nrow >= M || ncol < 0 || ncol >= N) continue;
+                if(map[row][col] > map[nrow][ncol])
+                    dp[row][col] += downWay(nrow, ncol);
+            }
+        }
+        return dp[row][col];
     }
 }
