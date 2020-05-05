@@ -14,6 +14,7 @@ public class N1920 {
         int N = Integer.parseInt(br.readLine());
         lnum = new int[N];
         StringTokenizer st = new StringTokenizer(br.readLine());
+
         for(int i=0; i<N; i++)
             lnum[i] = Integer.parseInt(st.nextToken());
 
