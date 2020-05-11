@@ -87,13 +87,13 @@ public class y19_3 {
                 candidates.add(i); // 유일성을 만족하는 튜플을 찾았다.
         }
 
-        Collections.sort(candidates, comp);
+        candidates.sort(comp);
 
         while(candidates.size() != 0){
             int num = candidates.remove(0);
             answer++;
 
-            for(Iterator<Integer> it = candidates.iterator(); it.hasNext();){
+            for(Iterator<Integer> it = candidates.iterator(); it.hasNext(); ){
                 int c = it.next();
 
                 // 최소성을 만족하지 못한다. 왜냐하면 유일성을 만족하는 키를 가지고 있다.
