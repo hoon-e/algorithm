@@ -16,6 +16,7 @@ public class N1915 {
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
+
         map = new char[N][M];
         dp = new int[N][M];
 

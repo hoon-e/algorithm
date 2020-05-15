@@ -3,26 +3,27 @@ package BOJ.tree;
 import java.io.*;
 import java.util.*;
 
-class Info {
-    int width;
-    int level;
+class Nodes {
+    int parent;
+    int idx;
+    int left;
+    int right;
 
-    Info(int width, int level){
-        this.width = width;
-        this.level = level;
-    }
-
-    public void maxHeight(int newLevel){
-        level = Math.max(level, newLevel);
+    Nodes(int idx, int left, int right){
+        this.parent = -1;
+        this.idx = idx;
+        this.left = left;
+        this.right = right;
     }
 }
 
 public class N2250 {
-    static List<Integer>[] nodes;
-    static Info[] infos;
+    static Nodes[] nodes;
     static boolean[] vst;
-    static int maxWidth;
-    static int minWidth;
+    static int[] minLevel;
+    static int[] maxLevel;
+    static int floorLevel;
+    static int x;
     static int temp = 0;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -30,46 +31,75 @@ public class N2250 {
         StringTokenizer st;
 
         int num = Integer.parseInt(br.readLine());
-        nodes = new ArrayList[num+1];
-        infos = new Info[num+1];
+        nodes = new Nodes[num+1];
+
+        minLevel = new int[num+1];
+        Arrays.fill(minLevel, 10001);
+        maxLevel = new int[num+1];
+        Arrays.fill(maxLevel, -1);
+
         vst = new boolean[num+1];
 
-        for(int i=1; i<=num; i++) {
-            nodes[i] = new ArrayList<>();
-            infos[i] = new Info(0, 0);
+        for(int i=1; i<=num; i++){
+            nodes[i] = new Nodes(i, -1, -1);
         }
 
         for(int i=0; i<num; i++){
             st = new StringTokenizer(br.readLine());
             int v = Integer.parseInt(st.nextToken());
-            int c = Integer.parseInt(st.nextToken());
-            int w = Integer.parseInt(st.nextToken());
+            int l = Integer.parseInt(st.nextToken());
+            int r = Integer.parseInt(st.nextToken());
 
-            if(c != -1)
-                nodes[v].add(c);
-            if(w != -1)
-                nodes[v].add(w);
+            nodes[v].left = l;
+            nodes[v].right = r;
+
+            if(l != -1) nodes[l].parent = v;
+            if(r != -1) nodes[r].parent = v;
         }
 
-        infos[1].width = 0;
-        infos[1].level = 1;
+        int root = 0;
 
-        DFS(1, 1);
-
-        for(int i=1; i<=num; i++)
-            System.out.print(infos[i].width + " ");
-    }
-
-    static int DFS(int vtx, int level){
-        vst[vtx] = true;
-
-        for(int e : nodes[vtx]){
-            if(!vst[e]){
-                infos[vtx].level = level+1;
-                infos[vtx].width += Math.max(infos[vtx].level, DFS(e, level+1));
+        for(int i=1; i<=num; i++){
+            if(nodes[i].parent == -1){
+                root = i;
+                break;
             }
         }
 
-        return infos[vtx].level;
+        x = 1; // 시작좌표
+        findMinMax(root, 1);
+
+        int ansLevel = 1;
+        int ansWidth = maxLevel[1] - minLevel[1] + 1;
+
+        for(int i=2; i<=floorLevel; i++){
+            int tempWidth = maxLevel[i] - minLevel[i] + 1;
+
+            if( tempWidth > ansWidth ){
+                ansLevel = i;
+                ansWidth = tempWidth;
+            }
+        }
+
+        bw.write(ansLevel + " " + ansWidth);
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+
+    static void findMinMax(int vtx, int level){
+        Nodes cur = nodes[vtx];
+
+        floorLevel = Math.max(floorLevel, level);
+
+        if(cur.left != -1)
+            findMinMax(cur.left, level+1);
+
+        minLevel[level] = Math.min(minLevel[level], x);
+        maxLevel[level] = x;
+        ++x;
+
+        if(cur.right != -1)
+            findMinMax(cur.right, level+1);
     }
 }
