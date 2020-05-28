@@ -5,6 +5,8 @@ import java.util.*;
 
 // Swapping adjacent elements
 // Optimizing bubbleSort
+// Worst and Average Case Time Complexity : O(n^2)
+// Stable : Yes
 
 public class BubbleSort {
     public static void main(String[] args) {
