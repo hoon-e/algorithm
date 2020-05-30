@@ -24,7 +24,7 @@ public class QuickSort {
     }
 
     static int partition(int[] arr, int low, int high){
-        int pivot = arr[(low+high)/2];
+        int pivot = arr[high];
         int index = (low-1);
 
         for(int i=low; i<high; i++){
