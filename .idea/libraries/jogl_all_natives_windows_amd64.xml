@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="jogl-all-natives-windows-amd64">
+    <CLASSES>
+      <root url="jar://D:/ChromeDownload/processing-3.5.4/core/library/jogl-all-natives-windows-amd64.jar!/" />
+      <root url="jar://D:/ChromeDownload/processing-3.5.4/core/library/gluegen-rt.jar!/" />
+      <root url="jar://D:/ChromeDownload/processing-3.5.4/core/library/gluegen-rt-natives-windows-amd64.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
