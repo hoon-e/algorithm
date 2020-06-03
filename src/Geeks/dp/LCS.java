@@ -20,6 +20,7 @@ public class LCS {
 
         int ans = recurLCS(X, Y, X.length, Y.length);
         int iterAns = iterLCS(X, Y, X.length, Y.length);
+
         out.write(ans+"\n"+iterAns);
         out.flush();
         in.close();
@@ -40,6 +41,7 @@ public class LCS {
         return (a > b) ? a : b;
     }
 
+    // worst : O(N^2)
     static int iterLCS(char[] X, char[] Y, int mLen, int nLen){
         int[][] l = new int[mLen+1][nLen+1];
 
