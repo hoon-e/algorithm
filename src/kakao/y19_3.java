@@ -1,6 +1,5 @@
 package kakao;
 
-import java.awt.desktop.SystemSleepEvent;
 import java.io.*;
 import java.util.*;
 
@@ -21,11 +20,12 @@ public class y19_3 {
         System.out.println(answer);
     }
 
-    /* 후보키 - Relation table 관련
-     * 유일성 : 릴레이션에 있는 모든 튜플에 대해서 유일하게 식별되어야한다.
-     * 최소성
-     * 
-     * 문제 아이디어 - 비트를 사용한다.(부분집합의 개념)
+    /*
+     후보키 -> Relation table 관련
+     유일성 : 릴레이션에 있는 모든 튜플에 대해서 유일하게 식별되어야한다.
+     최소성
+
+     문제 아이디어 -> 비트를 사용한다. ( 부분집합의 개념 )
      */
 
     static boolean check(String[][] relation, int row, int col, int sub){
@@ -44,6 +44,7 @@ public class y19_3 {
                 if(isSame) return false;
             }
         }
+
         return true;
     }
 
@@ -79,7 +80,7 @@ public class y19_3 {
         int colsize = relation[0].length;
 
         // 유일성을 먼저 계산하고, 최소성을 판단한다.
-        List<Integer> candidates = new LinkedList<>();
+        LinkedList<Integer> candidates = new LinkedList<>();
 
         // 부분집합 생성 ( 1 ~ 15 까지 모든 부분집합을 표현이 가능하다. )
         for(int i=1; i< (1 << colsize); i++){
