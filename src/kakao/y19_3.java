@@ -13,9 +13,8 @@ public class y19_3 {
                 {"300", "tube", "computer", "3"},
                 {"400", "con", "computer", "4"},
                 {"500", "muzi", "music", "3"},
-                {"600", "apeach", "music", "2"}
-        };
-
+                {"600", "apeach", "music", "2"}};
+        
         int answer = solution(relation);
         System.out.println(answer);
     }
