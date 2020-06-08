@@ -19,7 +19,6 @@ public class Main {
         // females.forEach(System.out::println);
 
         // Java streams
-        
         // Filter
         List<Person> females2 = people.stream()
                 // Takes predicate
@@ -29,7 +28,6 @@ public class Main {
                 .collect(Collectors.toList());
 
         // Sort
-
         // people.forEach(System.out::println);
 
         List<Person> sortedList = people.stream()
