@@ -24,7 +24,7 @@ public class subset {
                      many *= cases[j];
                  }
              }
-             answer += many;
+            int answer = many;
         }
 
         out.flush();
