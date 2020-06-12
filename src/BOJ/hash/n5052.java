@@ -3,57 +3,75 @@ package BOJ.hash;
 import java.io.*;
 import java.util.*;
 
-class TrieNode {
-    public Map<Character, TrieNode> childNodes;
-    public boolean isLastChar;
+public class n5052 {
+    static class Trie {
+        Number[] root;
 
-    public Map<Character, TrieNode> getChildNodes() {
-        return childNodes;
-    }
-
-    public boolean isLastChar() {
-        return isLastChar;
-    }
-
-    public void setLastChar(boolean lastChar) {
-        isLastChar = lastChar;
-    }
-}
-
-class Trie {
-    TrieNode root;
-
-    Trie(){
-        root = new TrieNode();
-    }
-
-    boolean insert(String s){
-        TrieNode curNode = root;
-        boolean flag = false;
-
-        for(int i=0; i<s.length(); i++){
-            if(curNode.getChildNodes() == null){
-                curNode.childNodes = new HashMap<>();
-                TrieNode temp = new TrieNode();
-                curNode.childNodes.put(s.charAt(i), temp);
-
-                curNode = temp;
-            }else{
-                TrieNode temp = curNode.getChildNodes().get(s.charAt(i));
-
-                if(temp.isLastChar())
-                    return true;
-
-                curNode = temp;
-            }
+        Trie(){
+            root = new Number[10];
         }
 
-        curNode.setLastChar(true);
-        return false;
-    }
-}
+        boolean add(String key){
+            int start = key.charAt(0)-'0';
 
-public class n5052 {
+            if(root[start] == null)
+                root[start] = new Number();
+
+            Number curNode = root[start];
+
+            for(int i=0; i<key.length(); i++){ // 0부터 하는 이유? : Trie에서 Root는 아무런 정보도 가지지않기 때문이다.
+                int next = key.charAt(i)-'0';
+
+                if(curNode.childs[next] == null)
+                    curNode.childs[next] = new Number();
+
+                curNode = curNode.childs[next];
+
+                if(curNode.isLast)
+                    return false;
+            }
+
+            curNode.isLast = true;
+            return true;
+        }
+    }
+
+    static class Number {
+        Number[] childs;
+        boolean isLast;
+
+        Number(){
+            childs = new Number[10];
+            isLast = false;
+        }
+    }
+
+    static int partition(String[] arr, int low, int high){
+
+        String pivot = arr[(low+high)/2];
+
+        while(low < high){
+            while((arr[low].compareTo(pivot) < 0) && (low < high)) ++low;
+            while((arr[high].compareTo(pivot) > 0) && (low < high)) --high;
+
+            if(low < high){
+                String temp = arr[low];
+                arr[low] = arr[high];
+                arr[high] = temp;
+            }
+        }
+        return low;
+    }
+
+    static void quickSort(String[] arr, int low, int high){
+        if(low < high){
+            int pivot = partition(arr, low, high);
+
+            quickSort(arr, low, pivot-1);
+            quickSort(arr, pivot+1, high);
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -63,26 +81,23 @@ public class n5052 {
         for(int i=0; i<t; i++) {
             int c = Integer.parseInt(in.readLine());
             String[] lines = new String[c];
+
             Trie trie = new Trie();
 
-            for (int j = 0; j < c; j++) {
+            for(int j=0; j<c; j++){
                 lines[j] = in.readLine();
             }
 
-            boolean flag = false;
+            quickSort(lines, 0, c-1);
 
+            boolean flag = true;
             for(int j=0; j<c; j++){
-                flag = trie.insert(lines[j]);
-
-                if(flag){
-                    break;
-                }
+                if(trie.add(lines[j])) continue;
+                flag = false;
+                break;
             }
 
-            if(flag)
-                out.write("NO\n");
-            else
-                out.write("YES\n");
+            out.write( flag ? "YES\n" : "NO\n" );
         }
 
         out.flush();
