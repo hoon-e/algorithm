@@ -19,14 +19,17 @@ public class disjointSet {
 
     public static void printSet(){
         System.out.println("index : ");
+
         for(int i=0; i<parent.length; i++)
             System.out.print(i + " ");
 
         System.out.println();
 
         System.out.println("parent : ");
+
         for(int i=0; i<parent.length; i++)
             System.out.print(parent[i] + " ");
+
         System.out.println();
         System.out.println();
     }
