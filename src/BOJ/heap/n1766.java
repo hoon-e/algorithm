@@ -67,19 +67,41 @@ public class n1766 {
             addHeap(i);
 
         for(int i=0; i<N/2; i++){
-            if(N > (int)Math.pow(2, i)) {
-                Arrays.sort(problem, (int)Math.pow(2, i), (int)Math.pow(2,i) + 2*i);
+            int[] s = sum(i);
+
+            if(N-1 > s[1]+1) {
+                Arrays.sort(problem, s[0], s[1]+1);
             }else {
-                Arrays.sort(problem, (int) Math.pow(2, i), N);
+                Arrays.sort(problem, s[0], N-1);
             }
         }
 
-        for(int i=0; i<N; i++)
-            System.out.print(problem[i] + " ");
-        System.out.println();
-
+        for(int p : problem)
+            out.write(p + " " );
         out.flush();
         in.close();
         out.close();
+    }
+
+    static int[] sum(int r){
+        int[] sum = new int[2];
+
+        for(int i=0; i<r+1; i++){
+            sum[0] += pow(i);
+        }
+
+        sum[1] = (sum[0] + (pow(r+1) - 1));
+
+        return sum;
+    }
+
+    static int pow(int b){
+        int s = 1;
+
+        for(int i=0; i<b; i++){
+            s *= 2;
+        }
+
+        return s;
     }
 }
