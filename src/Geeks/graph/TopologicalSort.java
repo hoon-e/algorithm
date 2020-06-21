@@ -44,6 +44,20 @@ public class TopologicalSort {
     }
 
     void topologiclSort(){
+        Stack<Integer> stack = new Stack<>();
 
+        boolean[] vst = new boolean[V];
+
+        for(int i=0; i<V; i++)
+            vst[i] = false;
+
+        for(int i=0; i<V; i++){
+            if(!vst[i])
+                topologicalSortUtil(i, vst, stack);
+        }
+
+        while(!stack.isEmpty()){
+            System.out.print(stack.pop() + " ");
+        }
     }
 }
