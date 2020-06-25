@@ -42,13 +42,12 @@ public class n1325 {
         for(int i=1; i<=N; i++) {
             vst = new boolean[N+1];
             cnt = 0;
-
-            System.out.print(i + " => ");
             dfs(i);
-            System.out.println();
             number[i] = cnt;
+        }
 
-            max = Math.max(max, cnt);
+        for(int i=1; i<=N; i++){
+            max =  Math.max(max, number[i]);
         }
 
         for(int i=1; i<=N; i++) {
@@ -62,14 +61,13 @@ public class n1325 {
         out.close();
     }
 
-    static void dfs(int v) {
+    static void dfs(int v){
         vst[v] = true;
 
-        for( int next : computers[v] ){
+        for(int next : computers[v]){
             if(!vst[next]){
-                System.out.print(next + " => ");
-                dfs(next);
                 ++cnt;
+                dfs(next);
             }
         }
     }
