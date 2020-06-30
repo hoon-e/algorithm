@@ -3,29 +3,23 @@ package RE.dp;
 import java.io.*;
 import java.util.*;
 
-public class n9095 {
-    static int T;
-    static int n;
-    static int[] dp = new int[12];
+public class n11726 {
+    static long[] dp;
     public static void main( String[] args ) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        T = Integer.parseInt(in.readLine());
+        int n = Integer.parseInt(in.readLine());
+        dp = new long[1001];
 
         dp[1] = 1;
         dp[2] = 2;
-        dp[3] = 4;
 
-        for(int i=4; i<12; i++) {
-            dp[i] = (dp[i-3] + dp[i-2] + dp[i-1]);
+        for(int i=3; i<=n; i++){
+            dp[i] = (dp[i-1] + dp[i-2]) % 10007;
         }
 
-        while(T-- > 0){
-            n = Integer.parseInt(in.readLine());
-            out.write(dp[n]+"\n");
-        }
-
+        out.write((dp[n] % 10007) +"\n");
         out.flush();
         in.close();
         out.close();
