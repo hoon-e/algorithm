@@ -31,12 +31,7 @@ public class n1149 {
             house[i][2] = min(house[i][2] + house[i-1][0], house[i][2] + house[i-1][1]);
         }
 
-        for(int i=0; i<N; i++){
-            for(int j=0; j<3; j++)
-                System.out.print(house[i][j] + " ");
-            System.out.println();
-        }
-
+        out.write(min(min(house[N-1][0], house[N-1][1]), house[N-1][2])+"");
         out.flush();
         in.close();
         out.close();
