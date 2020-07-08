@@ -21,27 +21,13 @@ public class n11053 {
         for(int i=0; i<N; i++)
             num[i] = Integer.parseInt(st.nextToken());
 
-        int max = -1;
-        for(int i=0; i<N; i++){
-            dp[i] = 1;
-            int val = num[i];
-            for(int j=i+1; j<N; j++){
-                if(num[j] > val){
-                    val = num[j];
-                    dp[j] = dp[j-1] + 1;
-                    max = Math.max(max, dp[j]);
-                }else
-                    dp[j] = dp[j-1];
-            }
-        }
-
-        if(max == -1)
-            out.write("1");
-        else
-            out.write(max+"");
-
         out.flush();
+
         in.close();
         out.close();
+    }
+
+    static int max(int a, int b){
+        return (a > b) ? a : b;
     }
 }
