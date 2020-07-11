@@ -13,16 +13,30 @@ public class n11053 {
         StringTokenizer st;
 
         N = Integer.parseInt(in.readLine());
-        num = new int[N];
-        dp = new int[N];
+        num = new int[N+1];
+        dp = new int[N+1];
 
         st = new StringTokenizer(in.readLine());
 
-        for(int i=0; i<N; i++)
+        for(int i=1; i<=N; i++)
             num[i] = Integer.parseInt(st.nextToken());
 
-        out.flush();
+        int max = -1;
 
+        dp[1] = 1;
+        for(int i=2; i<=N; i++){
+            dp[i] = 1;
+            for(int j=1; j<i; j++){
+                if(num[j] < num[i])
+                    dp[i] = max(dp[i], dp[j] + 1);
+            }
+        }
+
+        for(int i=1; i<=N; i++)
+            max = max(max, dp[i]);
+
+        out.write(max+"");
+        out.flush();
         in.close();
         out.close();
     }
