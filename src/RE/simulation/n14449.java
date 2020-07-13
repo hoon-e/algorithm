@@ -3,7 +3,7 @@ package RE.simulation;
 import java.io.*;
 import java.util.*;
 
-public class n1449 {
+public class n14449 {
     static int N;
     static int M;
     static int[][] map;
@@ -38,7 +38,7 @@ public class n1449 {
 
         while(st.hasMoreTokens()){
             int dir = Integer.parseInt(st.nextToken());
-
+            // 전개도로 어떻게 표현할 것인가?
             // 1 : 동, 2 : 서, 3 : 북, 4 : 남
 
         }
