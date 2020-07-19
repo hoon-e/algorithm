@@ -4,48 +4,62 @@ import java.io.*;
 import java.util.*;
 
 public class n18 {
-    boolean[] vst;
     ArrayList<Integer>[] graph;
-    ArrayList<Integer> ans;
+
     public int[] findOrder(int numCourses, int[][] prerequisites) {
+        int[] degree = new int[numCourses+1];
         graph = new ArrayList[numCourses];
-        ans = new ArrayList<>();
+
+        int len = prerequisites.length;
 
         for(int i=0; i<numCourses; i++)
             graph[i] = new ArrayList<Integer>();
 
-        vst = new boolean[numCourses];
-
-        for(int i=0; i<numCourses; i++)
-            graph[prerequisites[i][1]].add(prerequisites[i][0]);
-
-        for(int i=0; i<numCourses; i++) {
-            if(!vst[i])
-                dfs(i);
+        for ( int[] prerequisite : prerequisites ) {
+            graph[prerequisite[1]].add(prerequisite[0]);
+            degree[prerequisite[0]]++;
         }
 
-        int[] empty = new int[1];
-        int[] answer = new int[numCourses];
+        Queue<Integer> result = topologicalSort(degree, numCourses);
+        int[] ans;
 
-        if(ans.size() != numCourses) {
-            return empty;
+        if(result.size() != numCourses) {
+            ans = new int[0];
         } else {
             int idx = 0;
-            for(int n : ans) {
-                answer[idx++] = n;
+            ans = new int[numCourses];
+            for(int n : result) {
+                ans[idx++] = n;
             }
-            return answer;
         }
+        return ans;
     }
 
-    public void dfs(int val) {
-        vst[val] = true;
-        ans.add(val);
+    public Queue<Integer> topologicalSort(int[] degree, int n) {
+        Queue<Integer> queue = new LinkedList<Integer>();
+        Queue<Integer> result = new LinkedList<Integer>();
 
-        for(int next : graph[val]){
-            if(!vst[next]) {
-                dfs(next);
+        for(int i=0; i<n; i++) {
+            if( degree[i] == 0 )
+                queue.offer(i);
+        }
+
+        /* 큐에서 값을 꺼내고, 해당 노드가 가리키는 노드의 degree를 1감소
+        만약 degree가 0이되면 큐에 넣는다. 큐가 빌때까지 반복한다.
+        */
+
+        while(!queue.isEmpty()) {
+            int cur = queue.poll();
+            result.offer(cur);
+
+            for(int next : graph[cur]) {
+                degree[next]--;
+
+                if(degree[next] == 0)
+                    queue.offer(next);
             }
         }
+
+        return result;
     }
 }
