@@ -11,7 +11,7 @@ public class n1316 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		
-		int line=Integer.parseInt(br.readLine());
+		int line = Integer.parseInt(br.readLine());
 		int count = line;
 		char[][] s = new char[line][100];
 		
