@@ -10,7 +10,7 @@ public class n1316 {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		
+
 		int line = Integer.parseInt(br.readLine());
 		int count = line;
 		char[][] s = new char[line][100];
@@ -18,7 +18,7 @@ public class n1316 {
 		for(int i=0; i<line; i++) {
 			s[i] = br.readLine().toCharArray();	
 		}
-		
+
 		for(char[] w : s) {
 			boolean[] isChecked = new boolean[26];
 			for(int i=1; i<w.length; i++) {
