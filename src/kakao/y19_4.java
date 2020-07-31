@@ -28,14 +28,14 @@ public class y19_4 {
         }
     }
 
-    static Comparator<Food> compareTime = new Comparator<>(){
+    static Comparator<Food> compareTime = new Comparator<Food>(){
         @Override
         public int compare(Food a, Food b){
             return a.time - b.time;
         }
     };
 
-    static Comparator<Food> compareIdx = new Comparator<>(){
+    static Comparator<Food> compareIdx = new Comparator<Food>(){
         @Override
         public int compare(Food a, Food b){
             return a.idx - b.idx;

@@ -12,8 +12,10 @@ public class N1914 {
 
         int num=Integer.parseInt(br.readLine());
         BigInteger ans = new BigInteger("2");
+
         // 하노이의 탑을 옮기는 횟수는 2^NUM - 1회 이다.
         BigInteger c = ans.pow(num).subtract(BigInteger.ONE);
+
         if(num > 20) {
             bw.write(c + "\n");
             bw.flush();
@@ -23,6 +25,7 @@ public class N1914 {
             bw.write(((1<<num)-1)+"\n");
             hanoi(1, 3, num);
         }
+
         bw.write(sb.toString());
         bw.flush();
         bw.close();

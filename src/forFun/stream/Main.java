@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/*
 public class Main {
     public static void main(String[] args) {
         List<Person> people = getPeople();
@@ -72,17 +73,18 @@ public class Main {
                 }
         );
     }
-
-    private static List<Person> getPeople(){
-        return List.of(
-                new Person("James Bond", 20, Gender.MALE),
-                new Person("Penny", 33, Gender.FEMALE),
-                new Person("Marie", 47, Gender.FEMALE),
-                new Person("Sherlock", 19, Gender.MALE),
-                new Person("Harry", 18, Gender.MALE),
-                new Person("Hermione", 50, Gender.FEMALE),
-                new Person("John Snow", 20, Gender.MALE),
-                new Person("Anna", 30, Gender.FEMALE)
-        );
-    }
+//
+//    private static List<Person> getPeople(){
+//        return List.of(
+//                new Person("James Bond", 20, Gender.MALE),
+//                new Person("Penny", 33, Gender.FEMALE),
+//                new Person("Marie", 47, Gender.FEMALE),
+//                new Person("Sherlock", 19, Gender.MALE),
+//                new Person("Harry", 18, Gender.MALE),
+//                new Person("Hermione", 50, Gender.FEMALE),
+//                new Person("John Snow", 20, Gender.MALE),
+//                new Person("Anna", 30, Gender.FEMALE)
+//        );
+//    }
 }
+*/

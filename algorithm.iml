@@ -11,7 +11,7 @@
     <orderEntry type="library" exported="" name="core" level="project" />
     <orderEntry type="library" exported="" name="jogl-all" level="project" />
     <orderEntry type="library" exported="" name="jogl-all-natives-windows-amd64" level="project" />
-    <orderEntry type="module-library" scope="TEST">
+    <orderEntry type="module-library" exported="" scope="TEST">
       <library name="JUnit4">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/junit-4.12.jar!/" />

@@ -1,7 +1,5 @@
 package BOJ.etx;
 
-import jdk.swing.interop.SwingInterOpUtils;
-
 import java.io.*;
 import java.util.*;
 

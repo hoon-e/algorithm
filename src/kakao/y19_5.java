@@ -35,7 +35,7 @@ public class y19_5 {
     static List<Node> nodes = new ArrayList<>();
 
     // Comparator 정의
-    static Comparator<Node> comp = new Comparator<>(){
+    static Comparator<Node> comp = new Comparator<Node>(){
         public int compare(Node a, Node b){
             if(a.y == b.y)
                 return a.x - b.x;
