@@ -80,14 +80,14 @@ public class n19237 {
                 check(i, tmpDir[sharks[i].dir], time);
             }
 
+            gas();
+
             for(int i=0; i<N; i++){
                 for(int j=0; j<N; j++)
                     System.out.print(number[i][j] + " ");
                 System.out.println();
             }
             System.out.println();
-
-            gas();
 
             if(!isOnly()) break;
             if(time > 1000) {
@@ -115,6 +115,7 @@ public class n19237 {
         int nx=0, ny=0;
         int tmpX=0, tmpY=0, tmpDir=0;
         boolean flag = false;
+        boolean chk = false;
 
         for(int i=1; i<=4; i++) {
             nx = curX + dx[myDir[i]];
@@ -122,26 +123,26 @@ public class n19237 {
 
             if(nx < 0 || nx >= N || ny < 0 || ny >= N) continue;
 
-            if(n == number[nx][ny]) { // 일단 자기 번호 패스
+            if(n == number[nx][ny] && !chk) { // 일단 자기 번호 패스
+                System.out.println(n + " " + i);
                 tmpX = nx;
                 tmpY = ny;
                 tmpDir = myDir[i];
+                chk = true;
                 continue;
             }
 
-            if(smell[nx][ny] != 0 && vst[nx][ny] == time) { // 이전에 누가 방문했고, 시간이 같을 때
+            if(number[nx][ny] != n && vst[nx][ny] == time) { // 이전에 누가 방문했고, 시간이 같을 때
                 if(number[nx][ny] < n) { // 만약 들어와있는 번호가 지금 온 번호보다 크다.
                     sharks[n] = null; // 상어 out
-                    System.out.println(n + " out ");
                 } else {
                     sharks[number[nx][ny]] = null;
-                    System.out.println(number[nx][ny] + " out ");
                 }
                 flag = true;
                 break;
             }
 
-            if(smell[nx][ny] == 0) { // 0이면 방문
+            if(number[nx][ny] == 0) { // 0이면 방문
                 setShark(nx, ny, n, myDir[i]);
                 flag = true;
                 break;
@@ -149,6 +150,7 @@ public class n19237 {
         }
 
         if(!flag) {// 방문할 수 있는 점이 없다면 내 방문으로 감
+            System.out.println(n + " " + tmpX + " " + tmpY + " " + tmpDir);
             setShark(tmpX, tmpY, n, tmpDir);
         }
     }
