@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class n18_answer_degree {
+    // TODO: 위상정렬
     public int[] findOrder(int numCourses, int[][] prerequisites) {
         boolean isPossible = true;
         Map<Integer, List<Integer>> adjList = new HashMap<>();
