@@ -8,18 +8,19 @@ public class y19_muzi {
         long time = 0;
         int len = food_times.length;
 
-        int[] temp = new int[len+1];
+        int[] temp = new int[len+2];
         int idx = 0;
 
         for(int i=0; i<len; i++){
             ++time;
             --food_times[i];
-            if(food_times[i] != 0) temp[idx++] = i;
+            if(food_times[i] != 0)
+                temp[idx++] = i;
         }
 
         while(idx != 0) {
             int cur = temp[0];
-            temp = Arrays.copyOfRange(temp, 1, --idx);
+            System.arraycopy(temp, 1, temp, 0, --idx);
 
             ++time;
             --food_times[cur];
@@ -27,6 +28,6 @@ public class y19_muzi {
             if(time == k) break;
         }
 
-        return (idx == 0) ? -1 : temp[0];
+        return (idx == 0) ? -1 : temp[0]+1;
     }
 }

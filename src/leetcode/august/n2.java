@@ -57,40 +57,6 @@ public class n2 {
     }
 
     /**
-         private int bucketCount = 10000;
-         private LinkedList<Integer>[] buckets;
-         // Initialize your data structure here.
-        public MyHashSet() {
-            this.buckets = new LinkedList[bucketCount];
-        }
-
-        public void add(int key) {
-            int bucket = key % bucketCount;
-            if (buckets[bucket] == null) {
-                buckets[bucket] = new LinkedList<>();
-            }
-            if (!buckets[bucket].contains(key))
-                buckets[bucket].addFirst(key);
-        }
-
-        public void remove(int key) {
-            int bucket = key % bucketCount;
-            if (buckets[bucket] == null)
-                return;
-            buckets[bucket].remove((Integer)key);
-        }
-
-        // Returns true if this set contains the specified element
-        public boolean contains(int key) {
-            int bucket = key % bucketCount;
-            if (buckets[bucket] == null)
-                return false;
-
-            return buckets[bucket].contains(key);
-        }
-    */
-
-    /**
          class MyHashSet {
              // TC: O(N/K)=O(1) N: Total number of possible inputs, K: Total number of buckets(769 here)
              // SC: O(K+M) K: Total number of buckets(769) M: Total number of unique values that can be inserted

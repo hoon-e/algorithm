@@ -1,6 +1,5 @@
 package Geeks.graph;
 
-import java.io.*;
 import java.util.*;
 
 /*
@@ -76,7 +75,6 @@ public class MST {
 
         // 부분 집합을 생성한다.
         subset[] subsets = new subset[V];
-
         for(int i=0; i<V; i++)
             subsets[i] = new subset();
 
@@ -89,8 +87,7 @@ public class MST {
         int i = 0;
         while(e < V-1){
             // 가장 작은 가중치를 가지는 간선을 선택한다.
-            Edge nextEdge = new Edge();
-            nextEdge = edges[i++];
+            Edge nextEdge = edges[i++];
 
             int px = Find(subsets, nextEdge.src);
             int py = Find(subsets, nextEdge.dst);
