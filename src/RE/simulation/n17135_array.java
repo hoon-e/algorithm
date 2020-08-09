@@ -1,23 +1,30 @@
 package RE.simulation;
 
-import java.sql.SQLOutput;
 import java.util.*;
 import java.io.*;
 
-// N x M 의 격자판
-// 궁수 3명을 배치시킨다. 성이 있는 칸에 배치 가능하다.
-// 각 턴마다 궁수는 적하나를 공격한다. 궁수는 동시에 공격한다.
-// 궁수가 공격하는 적은 거리가 D이하인 적 중에서 가장 가까운 적.
-// 그러한 적이 여럿일 경우는 가장 왼쪽에 있는 적을 공격한다.
-// 같은 적은 여거 궁수에게 공격당할 수 있다.
-// 궁수읙 공격이 끝나면, 적은 아래로 한칸 이동하고 성이 있는 칸으로 이동하면 제외된다.
-public class n17135 {
+public class n17135_array {
+    static class Enemy {
+        int x;
+        int y;
+
+        Enemy(int x, int y){
+            this.x = x;
+            this.y = y;
+        }
+
+        Enemy(Enemy e){
+            this.x = e.x;
+            this.y = e.y;
+        }
+    }
+
     static int N, M, D, enemy=-1, count;
     static boolean[] chk;
     static int[] player;
     static int[][] map;
-    static ArrayList<int[]> enemies, temp;
-
+    static Enemy[] enemies, temp;
+    static int enemySize, tempSize;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -31,16 +38,21 @@ public class n17135 {
         player = new int[3];
 
         map = new int[N][M]; // map : N+1 행은 성이다.
-        enemies = new ArrayList<>(); // 적 위치
+        enemies = new Enemy[N*M];
 
+        int e=0;
         for(int i=0; i<N; i++){
             st = new StringTokenizer(br.readLine());
             for(int j=0; j<M; j++){
                 map[i][j] = Integer.parseInt(st.nextToken());
-                if(map[i][j] == 1) enemies.add(new int[]{i, j});
+                if(map[i][j] == 1) {
+                    enemies[e++] = new Enemy(i, j);
+                    enemySize++; // 적의 명수
+                }
             }
         }
 
+        temp = new Enemy[enemySize];
         setArcher(0);
 
         bw.write(enemy+"\n");
@@ -51,67 +63,79 @@ public class n17135 {
 
     private static void attack() {
         HashMap<Integer, Boolean> check = new HashMap<>();
-        ArrayList<int[]> moving = new ArrayList<>();
 
         // 3명의 궁수가 공격한다. idx는 열을 의미한다.
+        int removeEnemy = 0;
         for(int idx : player) {
             int minDist = 1_000_000;
             int tmpIdx = 0;
-            int[] tmpEnemy = null;
+            Enemy tmpEnemy = null;
 
-            for(int i=0; i<temp.size(); i++) {
-                int[] e = temp.get(i);
-                int dist = Math.abs(N - e[0]) + Math.abs(idx - e[1]);
+            for(int i=0; i<tempSize; i++) {
+                int dist = Math.abs(N - temp[i].x) + Math.abs(idx - temp[i].y);
                 if(dist > D) continue; // 최소거리보다 클 경우 계속 진행
-                
+
                 if(minDist > dist) { // 최소거리일 경우
                     minDist = dist;
                     tmpIdx = i;
-                    tmpEnemy = e;
+                    tmpEnemy = temp[i];
                 } else if(minDist == dist) { // 최소거리가 같을 경우
-                    if(tmpEnemy[1] > e[1]){ // 지금적이 더 왼쪽에 있을 경우
+                    if(tmpEnemy.y > temp[i].y){ // 지금적이 더 왼쪽에 있을 경우
                         tmpIdx = i;
-                        tmpEnemy = e;
+                        tmpEnemy = temp[i];
                     }
                 }
             }
 
-            if(tmpEnemy != null)
-                check.put(tmpIdx, true);
-        }
-
-        for(int i=0; i<temp.size(); i++) {
-            if(check.get(i) == null) moving.add(temp.get(i));
-        }
-
-        count += check.size();
-        temp = new ArrayList<>(moving);
-    }
-
-    private static void moveEnemy() {
-        ArrayList<int[]> move = new ArrayList<>();
-
-        for(int[] e : temp) {
-            int[] g = new int[2];
-            System.arraycopy(e, 0, g, 0, 2);
-
-            if(++g[0] < N) {
-                move.add(g);
+            if(tmpEnemy != null) { // 맞았다면 적의 idx를 넣는다.
+                if(check.get(tmpIdx) == null) {
+                    check.put(tmpIdx, true);
+                    removeEnemy++;
+                }
             }
         }
 
-        temp = new ArrayList<>(move); // 새롭게 적 list 갱신
+        Enemy[] moving = new Enemy[tempSize];
+
+        int e = 0;
+        for(int i=0; i<tempSize; i++) {
+            if(check.get(i) == null) moving[e++] = temp[i];
+        }
+
+        count += removeEnemy; // 제거한 적의 수
+        tempSize -= removeEnemy;
+
+        System.arraycopy(moving, 0, temp, 0, e);
+    }
+
+    private static void moveEnemy() {
+        Enemy[] moving = new Enemy[tempSize];
+
+        int e=0;
+        for(int i=0; i<tempSize; i++) {
+            Enemy c = new Enemy(temp[i]);
+
+            if(++c.x < N) {
+                moving[e++] = c;
+            }
+        }
+
+        tempSize = e;
+        System.arraycopy(moving, 0, temp, 0, tempSize);
     }
 
     private static void setArcher(int cnt) {
         if(cnt == 3) { // 3명 세팅했으면
-            temp = new ArrayList<>(enemies); // 적 복사
+            // 적 복사
+            temp = new Enemy[enemySize];
+            System.arraycopy(enemies, 0, temp, 0, enemySize);
+            tempSize = enemySize;
             count = 0; // count 시작
 
             while(true) {
                 attack(); // 공격
                 moveEnemy(); // 적 이동
-                if(temp.size() == 0) break;
+                if(tempSize == 0) break;
             }
 
             enemy = (enemy < count) ? count : enemy;
@@ -121,7 +145,8 @@ public class n17135 {
         for(int i=0; i<M; i++) {
             if(chk[i]) continue;
             chk[i] = true;
-            player[cnt] = i; // player의 위치
+            // player의 위치
+            player[cnt] = i;
             setArcher(cnt+1);
             chk[i] = false;
         }

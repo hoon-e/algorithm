@@ -1,22 +1,13 @@
 package RE.simulation;
 
-import java.sql.SQLOutput;
 import java.util.*;
 import java.io.*;
 
-// N x M 의 격자판
-// 궁수 3명을 배치시킨다. 성이 있는 칸에 배치 가능하다.
-// 각 턴마다 궁수는 적하나를 공격한다. 궁수는 동시에 공격한다.
-// 궁수가 공격하는 적은 거리가 D이하인 적 중에서 가장 가까운 적.
-// 그러한 적이 여럿일 경우는 가장 왼쪽에 있는 적을 공격한다.
-// 같은 적은 여거 궁수에게 공격당할 수 있다.
-// 궁수읙 공격이 끝나면, 적은 아래로 한칸 이동하고 성이 있는 칸으로 이동하면 제외된다.
-public class n17135 {
+public class n17135_amend {
     static int N, M, D, enemy=-1, count;
     static boolean[] chk;
     static int[] player;
     static int[][] map;
-    static ArrayList<int[]> enemies, temp;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -31,7 +22,7 @@ public class n17135 {
         player = new int[3];
 
         map = new int[N][M]; // map : N+1 행은 성이다.
-        enemies = new ArrayList<>(); // 적 위치
+        ArrayList<int[]> enemies = new ArrayList<>(); // 적 위치
 
         for(int i=0; i<N; i++){
             st = new StringTokenizer(br.readLine());
@@ -41,7 +32,7 @@ public class n17135 {
             }
         }
 
-        setArcher(0);
+        setArcher(0, enemies);
 
         bw.write(enemy+"\n");
         bw.flush();
@@ -49,7 +40,7 @@ public class n17135 {
         br.close();
     }
 
-    private static void attack() {
+    private static ArrayList<int[]> attack(ArrayList<int[]> temp) {
         HashMap<Integer, Boolean> check = new HashMap<>();
         ArrayList<int[]> moving = new ArrayList<>();
 
@@ -63,7 +54,7 @@ public class n17135 {
                 int[] e = temp.get(i);
                 int dist = Math.abs(N - e[0]) + Math.abs(idx - e[1]);
                 if(dist > D) continue; // 최소거리보다 클 경우 계속 진행
-                
+
                 if(minDist > dist) { // 최소거리일 경우
                     minDist = dist;
                     tmpIdx = i;
@@ -85,10 +76,10 @@ public class n17135 {
         }
 
         count += check.size();
-        temp = new ArrayList<>(moving);
+        return moving;
     }
 
-    private static void moveEnemy() {
+    private static ArrayList<int[]> moveEnemy(ArrayList<int[]> temp) {
         ArrayList<int[]> move = new ArrayList<>();
 
         for(int[] e : temp) {
@@ -100,17 +91,17 @@ public class n17135 {
             }
         }
 
-        temp = new ArrayList<>(move); // 새롭게 적 list 갱신
+        return move;
     }
 
-    private static void setArcher(int cnt) {
+    private static void setArcher(int cnt, ArrayList<int[]> enemies) {
         if(cnt == 3) { // 3명 세팅했으면
-            temp = new ArrayList<>(enemies); // 적 복사
+            ArrayList<int[]> temp = new ArrayList<>(enemies); // 적 복사
             count = 0; // count 시작
 
             while(true) {
-                attack(); // 공격
-                moveEnemy(); // 적 이동
+                temp = attack(temp); // 공격
+                temp = moveEnemy(temp); // 적 이동
                 if(temp.size() == 0) break;
             }
 
@@ -122,7 +113,7 @@ public class n17135 {
             if(chk[i]) continue;
             chk[i] = true;
             player[cnt] = i; // player의 위치
-            setArcher(cnt+1);
+            setArcher(cnt+1, enemies);
             chk[i] = false;
         }
     }
