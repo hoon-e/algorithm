@@ -71,6 +71,8 @@ public class n17135_array {
             int tmpIdx = 0;
             Enemy tmpEnemy = null;
 
+            // 5명 (0,0) (1,1) : 1
+
             for(int i=0; i<tempSize; i++) {
                 int dist = Math.abs(N - temp[i].x) + Math.abs(idx - temp[i].y);
                 if(dist > D) continue; // 최소거리보다 클 경우 계속 진행

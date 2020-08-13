@@ -1,7 +1,5 @@
 package leetcode.august;
 
-import jogamp.opengl.util.pngj.chunks.ChunkRaw;
-
 import java.util.*;
 import java.io.*;
 import java.util.regex.Pattern;

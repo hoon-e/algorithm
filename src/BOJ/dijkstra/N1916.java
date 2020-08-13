@@ -3,21 +3,21 @@ package BOJ.dijkstra;
 import java.io.*;
 import java.util.*;
 
-class edge implements Comparable<edge>{
-    int vertex;
-    int weight;
-
-    edge(int vertex, int weight){
-        this.vertex = vertex;
-        this.weight = weight;
-    }
-
-    public int compareTo(edge e){
-        return weight - e.weight;
-    }
-}
-
 public class N1916 {
+	static class edge implements Comparable<edge>{
+	    int vertex;
+	    int weight;
+
+	    edge(int vertex, int weight){
+	        this.vertex = vertex;
+	        this.weight = weight;
+	    }
+
+	    public int compareTo(edge e){
+	        return weight - e.weight;
+	    }
+	}
+	
     static int N;
     static int M;
     static ArrayList<edge>[] nodes;
