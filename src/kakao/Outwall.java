@@ -3,73 +3,79 @@ package kakao;
 import java.util.Arrays;
 
 class Solution {
-    boolean[] chk;
-    boolean[] distChk;
-    int answer = Integer.MAX_VALUE;
+    boolean[] chk;  
+    int ans = Integer.MAX_VALUE;
+    
+    /*
+     * 생각
+     * 오른쪽으로만 가는 것이 최선인가? 왼쪽으로만 가는 것이 최선인가?
+     * 오른쪽으로 가다가 왼쪽으로 트는 것이 최선일 수는 없을까?
+     *  
+     */
     
     public int solution(int n, int[] weak, int[] dist) {
-        chk = new boolean[n];
-        distChk = new boolean[dist.length];
-        
         Arrays.sort(dist);
-        dfs(n, weak, dist, 0);
         
-        if(answer == Integer.MAX_VALUE) answer = -1;
-        return answer;
+        if(weak.length == 0) return 0;
+        
+        for(int wIdx = weak.length-1; wIdx >=0; wIdx--) {
+        	chk = new boolean[n];
+            int dIdx = dist.length-1;
+            
+//            makePerm();
+            
+    		turn(n, weak, dist, wIdx, dIdx, 0);
+        }
+        
+        if(ans == Integer.MAX_VALUE) ans = -1;
+        return ans;
     }
     
-    public boolean isDist(int n) {
-    	for(int i=0; i<n; i++) {
-    		if(!distChk[i]) return false;
+    // 시계방향으로 해당 방향 만큼 오른쪽으로 돌린다.
+    public void turn(int n, int[] weak, int[] dist, int wIdx, int dIdx, int cnt)     {
+    	if(isAll(weak)) {
+    		ans = Math.min(ans, cnt);
+    		return;
     	}
     	
-    	return true;
+    	if(dIdx < 0) return;
+    	if(chk[weak[wIdx]])
+            wIdx = (wIdx-1 < 0) ? 0 : wIdx-1;
+        
+    	int next = (wIdx-1 < 0) ? 0 : wIdx-1;
+    	
+    	int i;
+        
+		/** 오른쪽으로 돌리면서 체크한다. **/
+    	for(i=weak[wIdx]; i <= weak[wIdx] + dist[dIdx]; i++) {
+    		chk[i%n] = true;
+    	}
+    	 	
+		turn(n, weak, dist, next, dIdx-1, cnt+1);
+
+		for(i=weak[wIdx]; i<=weak[wIdx] + dist[dIdx]; i++) {
+    		chk[i%n] = false;
+    	}
+		
+		/**** 왼쪽으로 돌리는 코드 ****/
+		for(i=weak[wIdx]; i >= weak[wIdx] - dist[dIdx]; i--) {
+    		if(i < 0) chk[(i%n) + n] = true;
+    		else chk[i] = true;
+    	}
+		
+		turn(n, weak, dist, next, dIdx-1, cnt+1);
+				
+		for(i=weak[wIdx]; i >= weak[wIdx] - dist[dIdx]; i--) {
+    		if(i < 0) chk[(i%n) + n] = false;
+    		else chk[i] = false;
+		}
     }
     
     public boolean isAll(int[] weak) {
         for(int i=0; i<weak.length; i++) {
             if(!chk[weak[i]]) return false;
         }
-        
         return true;
-    }
-    
-    public void dfs(int n, int[] weak, int[] dist, int cnt) {
-    	if(isDist(dist.length)) return;
-        if(isAll(weak)) { // 모두 수리 했다면
-            answer = Math.min(answer, cnt);
-            return;
-        }
-
-        boolean[] original = new boolean[n];
-        
-        for(int i=0; i<n; i++)
-            original[i] = chk[i];
-        
-        for(int idx=0; idx < weak.length; idx++) {
-            if(chk[weak[idx]]) continue; // 수리한 취약 지점이라면
-            
-            for(int j=0; j<dist.length; j++) {
-            	if(distChk[j]) continue;
-            	
-            	distChk[j] = true;
-            	
-            	int d = dist[j]; // 거리
-                int c = weak[idx]; // 시작 지점
-
-                while(d-- >= 0) { // 거리가 0보다 클 동안
-                    if(c >= n) c = 0;
-                    chk[c++] = true;
-                }
-                
-                dfs(n, weak, dist, cnt + 1);
-                
-                for(int i=0; i<n; i++)
-                	chk[i] = original[i]; // 원상복구
-                
-                distChk[j] = false;
-            }          
-        }
     }
 }
 
@@ -77,7 +83,7 @@ public class Outwall {
 	public static void main(String[] args) {
 		Solution s = new Solution();
 		
-		int ans = s.solution(12, new int[]{1, 3, 4, 9, 10}, new int[]{3, 5, 7});
+		int ans = s.solution(200, new int[]{0, 10, 50, 80, 120, 160}, new int[]{1, 10, 5, 40, 30});
 		
 		System.out.println(ans);
 	}
