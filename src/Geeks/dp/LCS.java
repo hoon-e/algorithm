@@ -12,16 +12,13 @@ public class LCS {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        String s1 = "AGGTAB";
-        String s2 = "GXTXAYB";
+        char[] X = in.readLine().toCharArray();
+        char[] Y = in.readLine().toCharArray();
 
-        char[] X = s1.toCharArray();
-        char[] Y = s2.toCharArray();
-
-        int ans = recurLCS(X, Y, X.length, Y.length);
+//        int ans = recurLCS(X, Y, X.length, Y.length);
         int iterAns = iterLCS(X, Y, X.length, Y.length);
 
-        out.write(ans+"\n"+iterAns);
+        out.write(iterAns+"\n");
         out.flush();
         in.close();
         out.close();
