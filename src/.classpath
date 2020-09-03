@@ -2,5 +2,6 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry excluding="BOJ/sort/" kind="src" path=""/>
+	<classpathentry kind="lib" path="C:/Users/jaehoon/Desktop/bojCrawler/jsoup-1.13.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

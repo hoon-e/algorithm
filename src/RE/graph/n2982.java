@@ -35,8 +35,9 @@ public class n2982 {
 	}
 	
 	static int N, M, A, B, K, G;
-	static int[] godola, times;
-	static int[][] remain;
+	static int[][] adj, godula;
+	static int[] times, route;
+	
 	static final int INF = Integer.MAX_VALUE;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -46,8 +47,10 @@ public class n2982 {
 		M = Integer.parseInt(st.nextToken());
 		
 		road[] roads = new road[N+1];
-		times = new int[N+1];
-		remain = new int[N+1][N+1];
+		adj = new int[N+1][N+1]; // 인접
+		times = new int[N+1]; // 시간
+		route = new int[N+1]; // 고두라의 경로
+		godula = new int[N+1][N+1]; // 고두라의 시간
 		
 		Arrays.fill(times, INF);
 		
@@ -58,13 +61,12 @@ public class n2982 {
 		K = Integer.parseInt(st.nextToken());
 		G = Integer.parseInt(st.nextToken());
 		
-		godola = new int[G];
-		
 		st = new StringTokenizer(br.readLine());
 		
-		for(int i=0; i<G; i++)
-			godola[i] = Integer.parseInt(st.nextToken());
-		
+		for(int i=0; i<G; i++) {
+			route[i] = Integer.parseInt(st.nextToken());
+		}
+
 		for(int i=0; i<M; i++) {
 			st = new StringTokenizer(br.readLine());
 			
@@ -74,44 +76,23 @@ public class n2982 {
 			
 			roads[from] = new road(to, weight, roads[from]);
 			roads[to] = new road(from, weight, roads[to]);
+			
+			adj[from][to] = weight;
+			adj[to][from] = weight;
 		}
 		
-		// 고돌라부터 진행시킴
-		road head = roads[godola[0]];
+		int start = 0;
+		for(int i=0; i<G-1; i++) {
+			godula[route[i]][route[i+1]] = start;
+			godula[route[i+1]][route[i]] = start;
+			
+			start += adj[route[i]][route[i+1]];
+		}
 
-		int time = 0;
-		int idx = 1;
-		int start = godola[0];
-		
-		while(idx < G) {
-			while(head != null) {
-				if(head.dst != godola[idx]) {
-					head = head.link;
-				}
-				else break;
-			}
-			
-			time += head.time; // 시간 더해준다.
-			
-			if(time > K) {
-				remain[start][head.dst] = time - K;
-				remain[head.dst][start] = time - K;
-				time = 0;
-			}
-			
-			start = head.dst;
-			head = roads[godola[idx++]];
-		}
-		
 		PriorityQueue<vtx> pq = new PriorityQueue<>();
-		times[A] = 0;
+		times[A] = K;
 		
-		head = roads[A]; // 시작점의 노드
-
-		while(head != null) {
-			pq.offer(new vtx(head.dst, head.time));
-			head = head.link;
-		}
+		pq.offer(new vtx(A, K));
 		
 		int ans = 0;
 		while(!pq.isEmpty()) { // pq가 비어있을 동안
@@ -125,15 +106,23 @@ public class n2982 {
 				break;
 			}
 			
-			head = roads[curVtx];
+			if(times[curVtx] != curTime) continue;
+			
+			road head = roads[curVtx];
 			while(head != null) {
 				int nextVtx = head.dst;
 				int nextTime = head.time;
-				int remainTime = 0;
+				int startTime = godula[curVtx][nextVtx];
+				int endTime = adj[curVtx][nextVtx];
+				int totalTime = startTime + endTime;
 				
-				if(remain[curVtx][nextVtx] != 0) remainTime = remain[curVtx][nextVtx] - curTime;
-				if(curTime + nextTime + remainTime < times[nextVtx]) {
-					times[nextVtx] = curTime + nextTime + remainTime;
+				if(startTime <= curTime && 
+						curTime <= totalTime) {
+					nextTime += totalTime - curTime;
+				}
+				
+				if(curTime + nextTime < times[nextVtx]) {
+					times[nextVtx] = curTime + nextTime;
 					pq.offer(new vtx(nextVtx, times[nextVtx]));
 				}
 				
@@ -141,6 +130,6 @@ public class n2982 {
 			}
 		}
 		
-		System.out.println(ans);
+		System.out.println(ans - K);
 	}
 }
