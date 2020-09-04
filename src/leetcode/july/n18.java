@@ -10,10 +10,8 @@ public class n18 {
         int[] degree = new int[numCourses+1];
         graph = new ArrayList[numCourses];
 
-        int len = prerequisites.length;
-
         for(int i=0; i<numCourses; i++)
-            graph[i] = new ArrayList<Integer>();
+            graph[i] = new ArrayList<>();
 
         for ( int[] prerequisite : prerequisites ) {
             graph[prerequisite[1]].add(prerequisite[0]);

@@ -21,7 +21,7 @@ public class n17144 {
 		T = Integer.parseInt(st.nextToken());
 		
 		map = new int[R][C];
-				
+
 		int cIdx = 0;
 		for(int i=0; i<R; i++) {
 			st = new StringTokenizer(br.readLine());
@@ -61,7 +61,7 @@ public class n17144 {
 				int dCount = 0; // 뿌린 갯수
 				int dAmount = (map[i][j] / 5); // 뿌리는 양
 				
-				for(int d=0; d<4; d++) {
+				for(int d=0; d<4; d++) { // 4방을 탐색을 하면서 먼지를 뿌립니다.
 					int nr = i + dx[d];
 					int nc = j + dy[d];
 					
@@ -78,7 +78,7 @@ public class n17144 {
 		}
 		
 		tMap[cleaner[0]][0] = -1;
-		tMap[cleaner[1]][0] = -1;
+		tMap[cleaner[1]][0] = -1; // 주의!! 청소기의 위치를
 		
 		for(int i=0; i<R; i++) {
 			for(int j=0; j<C; j++) {

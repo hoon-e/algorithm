@@ -20,9 +20,8 @@ public class n8913 {
 		
 		for(int tc=1; tc<=T; tc++) {
 			String line = br.readLine().trim();
-			
-			
-			
+
+
 			if(flag) bw.write("1\n");
 			else bw.write("0\n");
 		}
