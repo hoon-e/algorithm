@@ -7,8 +7,7 @@ import java.util.StringTokenizer;
 
 public class N2573 {
     static class coord {
-        int x;
-        int y;
+        int x, y;
 
         coord(int x, int y){
             this.x = x;
@@ -16,8 +15,7 @@ public class N2573 {
         }
     }
 
-    static int N;
-    static int M;
+    static int N, M;
     static int[][] mount;
     static boolean[][] chk;
     static int[] dx = {-1, 0, 1, 0};
@@ -25,8 +23,8 @@ public class N2573 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
         StringTokenizer st = new StringTokenizer(br.readLine());
+
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
         mount = new int[N+1][M+1];
@@ -52,7 +50,7 @@ public class N2573 {
             }
 
             time++;
-            if(Check() >= 2){
+            if(check() >= 2){
                 break;
             }else{
                 if(isZero()) {
@@ -81,7 +79,7 @@ public class N2573 {
         return true;
     }
 
-    static int Check(){
+    static int check(){
         chk = new boolean[N + 1][M + 1];
         int cnt = 0;
         for (int i = 0; i < N; i++) {
